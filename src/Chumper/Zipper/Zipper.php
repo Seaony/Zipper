@@ -593,7 +593,7 @@ class Zipper
         $self = $this;
         $this->repository->each(function ($fileName) use ($path, $matchingMethod, $self) {
             $currentPath = $self->getCurrentFolderWithTrailingSlash();
-            if (!empty($currentPath) && !starts_with($fileName, $currentPath)) {
+            if (!empty($currentPath) && !\Illuminate\Support\Str::startsWith($fileName, $currentPath)) {
                 return;
             }
 
