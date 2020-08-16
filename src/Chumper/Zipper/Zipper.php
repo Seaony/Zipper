@@ -180,7 +180,7 @@ class Zipper
             };
         } else {
             $matchingMethod = function ($haystack) use ($files) {
-                return starts_with($haystack, $files);
+                return \Illuminate\Support\Str::startsWith($haystack, $files);
             };
         }
 
@@ -323,7 +323,7 @@ class Zipper
         if (is_array($fileToRemove)) {
             $self = $this;
             $this->repository->each(function ($file) use ($fileToRemove, $self) {
-                if (starts_with($file, $fileToRemove)) {
+                if (\Illuminate\Support\Str::startsWith($file, $fileToRemove)) {
                     $self->getRepository()->removeFile($file);
                 }
             });
@@ -613,7 +613,7 @@ class Zipper
     private function extractOneFileInternal($fileName, $path)
     {
         $tmpPath = str_replace($this->getInternalPath(), '', $fileName);
-        
+
         //Prevent Zip traversal attacks
         if (strpos($fileName, '../') !== false || strpos($fileName, '..\\') !== false) {
             throw new \RuntimeException('Special characters found within filenames');
